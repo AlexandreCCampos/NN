@@ -42,7 +42,13 @@ class NN {
         return sigmoid_function(x);
     }
 
-    void fed_foward() {
+    VectorXd feed_foward(std::vector<double> a_) {
+        // using "a" as a vector parameter for while - try to use vector from eigen directly later.
+        VectorXd a = Eigen::Map<VectorXd>(a_.data(), a_.size());
+        for (int i = 0; i < num_layers - 1; i++) {
+            a = weights.at(i) * a + biases.at(i); // check if its doing the right number of layers
+        }
+        return a;
     }
 
     ~NN();
